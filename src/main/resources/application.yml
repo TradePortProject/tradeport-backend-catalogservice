@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo.backend-namespace-ec2.svc.cluster.local:27017/catalogdb

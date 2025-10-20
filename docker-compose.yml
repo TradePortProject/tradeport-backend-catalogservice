@@ -1,0 +1,18 @@
+services:
+  catalogservice:
+    image: catalogservice
+    build: .  # Assuming your Dockerfile is in the same directory as docker-compose.yml
+    container_name: catalogservice
+    ports:
+      - "9098:9098"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: localhost:9092
+      KAFKA_TOPIC: tradeport-notify
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    external: true
