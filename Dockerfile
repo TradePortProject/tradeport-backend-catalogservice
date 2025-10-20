@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the built JAR file into the container
-COPY target/catalog-service.jar catalog-service.jar
+COPY target/*.jar app.jar
 
 # Expose the port your Spring Boot application runs on (default Spring Boot port)
 EXPOSE 8081
@@ -15,5 +15,5 @@ ENV SPRING_KAFKA_BOOTSTRAP_SERVERS=my-cluster-kafka-bootstrap.backend-namespace-
 ENV KAFKA_TOPIC=your_kafka_topic
 
 # Define the command to run the Spring Boot application
-CMD ["java", "-jar", "catalog-service.jar"]
+CMD ["java", "-jar", "app.jar"]
 
