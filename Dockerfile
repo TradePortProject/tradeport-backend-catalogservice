@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/*.jar app.jar
 
 # Expose the port your Spring Boot application runs on (default Spring Boot port)
-EXPOSE 8081
+EXPOSE 9098
 
 # Define environment variables that your application might need
 ENV SPRING_KAFKA_BOOTSTRAP_SERVERS=my-cluster-kafka-bootstrap.backend-namespace-ec2.svc.cluster.local:9092

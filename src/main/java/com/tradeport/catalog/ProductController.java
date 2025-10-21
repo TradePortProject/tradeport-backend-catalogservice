@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ProductManagement/GetFilteredProducts")
+@RequestMapping("/api/v2/ProductManagement/GetFilteredProducts")
 public class ProductController {
     private final ProductService service;
 
