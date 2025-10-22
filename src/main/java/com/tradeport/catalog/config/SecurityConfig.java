@@ -1,4 +1,4 @@
-package com.tradeport.catalog.config; // Create a config package for this
+package com.tradeport.catalog.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,22 +13,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // 1. Configure Authorization for all incoming requests
-                .authorizeHttpRequests((requests) -> requests
-                        // Permit unauthenticated access to the health and readiness probes
-                        .requestMatchers("/health", "/ready").permitAll()
-
-                        // Require authentication for all other endpoints
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll() //  Allow all requests without authentication
                 )
-
-                // 2. Disable default generated security
-                // If you still need basic login for other endpoints, keep this.
-                // If you rely on OAuth2/JWT for other services, you might disable formLogin().
-                // For now, let's keep the default behavior for other endpoints if they exist.
-
-                // 3. Essential: Disable CSRF protection for API services
-                .csrf((csrf) -> csrf.disable());
+                .csrf(csrf -> csrf.disable()); //  Disable CSRF for stateless APIs
 
         return http.build();
     }
