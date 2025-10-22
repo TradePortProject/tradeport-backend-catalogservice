@@ -14,17 +14,17 @@ public class ProductController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/GetFilteredProducts/GetFilteredProducts")
     public List<Product> getAll() {
-        return service.getAllProducts();
+        return service.extractNestedProducts();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/GetFilteredProducts/GetFilteredProducts/{id}")
     public Product getById(@PathVariable String id) {
         return service.getProductById(id);
     }
 
-    @PostMapping
+    @PostMapping("/CreateProduct")
     public Product create(@RequestBody Product product) {
         return service.saveProduct(product);
     }
