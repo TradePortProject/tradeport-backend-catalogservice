@@ -4,6 +4,7 @@ import com.tradeport.catalog.model.Product;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,8 @@ public class ProductService {
     private MongoTemplate mongoTemplate;
 
     public List<Product> extractNestedProducts() {
-        Document wrapper = mongoTemplate.findOne(null, Document.class, "products");
+        // ✅ FIX: Use an empty Query instead of null
+        Document wrapper = mongoTemplate.findOne(new Query(), Document.class, "products");
         if (wrapper == null || !wrapper.containsKey("product")) {
             return List.of();
         }
@@ -28,7 +30,6 @@ public class ProductService {
     }
 
     public Product getProductById(String id) {
-        // Optional: search inside nested array manually
         return extractNestedProducts().stream()
                 .filter(p -> p.getProductID().equals(id))
                 .findFirst()
@@ -36,7 +37,7 @@ public class ProductService {
     }
 
     public Product saveProduct(Product product) {
-        // Optional: flatten and save directly if you restructure MongoDB
+        // ⚠️ Note: This will insert a new top-level document, not into the nested array
         return mongoTemplate.save(product, "products");
     }
 }
